@@ -30,6 +30,16 @@
             android:text="Category"
             android:textSize="20sp"
             android:id="@+id/product_category"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/product_price_txt"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:id="@+id/product_price"/>
+
+
 
     </LinearLayout>
 </LinearLayout>

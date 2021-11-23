@@ -1,5 +1,7 @@
 package com.josus.shoppingapp.util
 
+import android.content.Context
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.josus.shoppingapp.R
 import com.josus.shoppingapp.data.model.Product
 
-class ListAdapter : RecyclerView.Adapter<ListAdapter.ProductViewHolder>() {
+class ListAdapter(context: Context) : RecyclerView.Adapter<ListAdapter.ProductViewHolder>() {
     inner class ProductViewHolder(itemView:View):RecyclerView.ViewHolder(itemView)
 
     private val differCallback = object :DiffUtil.ItemCallback<Product>(){
@@ -41,6 +43,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ProductViewHolder>() {
                 .into(this.findViewById(R.id.product_image))
             this.findViewById<TextView>(R.id.product_title).text = product.title
             this.findViewById<TextView>(R.id.product_category).text = product.category
+            this.findViewById<TextView>(R.id.product_price).text = context.getString(R.string.product_price_txt,product.price.toString())
         }
     }
 
