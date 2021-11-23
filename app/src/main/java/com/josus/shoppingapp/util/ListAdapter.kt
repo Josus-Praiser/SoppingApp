@@ -1,7 +1,5 @@
 package com.josus.shoppingapp.util
 
-import android.content.Context
-import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.josus.shoppingapp.R
 import com.josus.shoppingapp.data.model.Product
+import java.text.NumberFormat
 
-class ListAdapter(context: Context) : RecyclerView.Adapter<ListAdapter.ProductViewHolder>() {
-    inner class ProductViewHolder(itemView:View):RecyclerView.ViewHolder(itemView)
+class ListAdapter : RecyclerView.Adapter<ListAdapter.ProductViewHolder>() {
+    inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    private val differCallback = object :DiffUtil.ItemCallback<Product>(){
+    private val differCallback = object : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem.id == newItem.id
         }
@@ -30,7 +29,7 @@ class ListAdapter(context: Context) : RecyclerView.Adapter<ListAdapter.ProductVi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_product,parent,false)
+                .inflate(R.layout.item_product, parent, false)
         )
     }
 
@@ -43,11 +42,13 @@ class ListAdapter(context: Context) : RecyclerView.Adapter<ListAdapter.ProductVi
                 .into(this.findViewById(R.id.product_image))
             this.findViewById<TextView>(R.id.product_title).text = product.title
             this.findViewById<TextView>(R.id.product_category).text = product.category
-            this.findViewById<TextView>(R.id.product_price).text = context.getString(R.string.product_price_txt,product.price.toString())
+            val productPrice =NumberFormat.getCurrencyInstance().format(product.price)
+            this.findViewById<TextView>(R.id.product_price).text =
+                context.getString(R.string.product_price_txt, productPrice)
         }
     }
 
     override fun getItemCount(): Int {
-       return differ.currentList.size
+        return differ.currentList.size
     }
 }

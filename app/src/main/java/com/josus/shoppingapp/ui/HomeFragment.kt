@@ -97,7 +97,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        productListAdapter = ListAdapter(requireContext())
+        productListAdapter = ListAdapter()
         binding.rvProductList.apply {
             adapter = productListAdapter
             layoutManager = LinearLayoutManager(requireContext())
